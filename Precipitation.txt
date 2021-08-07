@@ -1,0 +1,31 @@
+var prec = Intersects( $feature, FeatureSetById($map, /* NDFD Precipitation Forecast */ "NDFD_Precipitation_v1_7224") )
+if (Count(prec) == 0) {
+    return 'No precipitation'
+}
+else {
+    for (var listing in prec) {
+        var label = Text(listing.label)
+        
+        var frommin = when(
+            Minute(listing.fromdate) < 10, '0' + Text(Minute(listing.fromdate)),
+            Text(Minute(listing.fromdate))
+            )
+        var fromtime = when(
+            Hour(listing.fromdate) > 12, Text(Hour(listing.fromdate)-12) + ':' + frommin + ' pm',
+            Hour(listing.fromdate) > 12, Text(Hour(listing.fromdate)) + ':' + frommin + ' pm',
+            Text(Hour(listing.fromdate)) + ':' + frommin + ' am'
+            )
+            
+        var tomin = when(
+            Minute(listing.todate) < 10, '0' + Text(Minute(listing.todate)),
+            Text(Minute(listing.todate))
+            )
+        var totime = when(
+            Hour(listing.todate) > 12, Text(Hour(listing.todate)-12) + ':' + tomin + ' pm ',
+            Hour(listing.todate) > 12, Text(Hour(listing.todate)) + ':' + tomin + ' pm ',
+            Text(Hour(listing.todate)) + ':' + tomin + ' am '
+            )
+    
+    }
+    return label + ' of precipitation expected from ' + fromtime + ' to ' + totime
+}

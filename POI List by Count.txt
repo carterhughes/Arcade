@@ -1,0 +1,16 @@
+var trailName = $feature["TRAIL_NAME"]
+var trailPOI = Filter(FeatureSetByName($map,"Points of Interest"), "TRAIL_ASSOCIATED = @trailName")
+if (Count(trailPOI) == 0){
+    return 'No points of interest on trail'
+}
+var groupPOI = GroupBy(trailPOI, ["POINTS_OF_INTEREST"], 
+    [{ name: "Count", expression: "1", statistic: "count"}]
+    )
+var orderPOI = OrderBy(groupPOI, 'Count DESC')
+var content = ''
+var counter = 1
+for (var i in orderPOI){
+        content += counter + ') ' + i.POINTS_OF_INTEREST + ': ' + Text(i.Count) + ' total' + TextFormatting.NewLine
+        counter += 1
+    }
+return content
