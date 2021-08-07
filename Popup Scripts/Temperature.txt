@@ -1,0 +1,5 @@
+var station = FeatureSetById($map, /* Gaithersburg - Current Weather and Wind Station Data */ "NOAA_METAR_current_wind_speed_direction_v1_8679")
+
+for (var feat in station) {
+    return Text(feat.TEMP) + ' °F'
+}

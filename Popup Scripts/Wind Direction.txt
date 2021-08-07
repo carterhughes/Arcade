@@ -1,0 +1,16 @@
+var searchDistance = 2.75
+var winds = FeatureSetById($map, /* National Weather Service Wind Forecast - Wind at City Level */ "NDFD_WindForecast_v1_826")
+var closestWinds = Intersects(winds, BufferGeodetic($feature, searchDistance, "miles"))
+var minDistance = Infinity
+var closestWind
+
+for (var listing in closestWinds){
+    var windDistance = Distance(listing, $feature, "miles");
+    if(windDistance < minDistance){
+      minDistance = windDistance;
+      closestWind = listing;
+    }
+  }
+
+var lookup = ['N', 'NbE', 'NNE', 'NEbN', 'NE', 'NEbE', 'ENE', 'EbN', 'E', 'EbS', 'ESE', 'SEbE', 'SSE', 'SEbS', 'SSE', 'SbE', 'S', 'SbW', 'SSW', 'SWbS', 'SW', 'SWbW', 'WSW', 'WbS', 'W', 'WbN', 'WNW', 'NWbW', 'NW', 'NWbN', 'NNW', 'NbW', 'N']
+lookup[ Round(Number( Split( Text( closestWind.WindDir / 5.625), '.')[0]) / 2)]

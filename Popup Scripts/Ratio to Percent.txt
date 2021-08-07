@@ -1,0 +1,13 @@
+var bike = $feature["BIKE_2018"]
+var ped = $feature["PED_2018"]
+var ratio = when(
+    IsEmpty(bike) || IsEmpty(ped), NULL,
+    ped / bike
+    )
+    
+var percent = when(
+    IsEmpty(ratio), NULL,
+    ratio >= 1, ratio * 100,
+    -1 / ratio * 100
+    )
+return percent

@@ -1,0 +1,15 @@
+var searchDistance = 2.75
+var winds = FeatureSetById($map, /* National Weather Service Wind Forecast - Wind at City Level */ "NDFD_WindForecast_v1_826")
+var closestWinds = Intersects(winds, BufferGeodetic($feature, searchDistance, "miles"))
+var minDistance = Infinity
+var closestWind
+
+for (var listing in closestWinds){
+    var windDistance = Distance(listing, $feature, "miles");
+    if(windDistance < minDistance){
+      minDistance = windDistance;
+      closestWind = listing;
+    }
+  }
+
+closestWind.WindSpeed
