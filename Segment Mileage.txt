@@ -1,1 +1,0 @@
-Text(Round(LengthGeodetic(Geometry($feature), 'miles'), 2))
