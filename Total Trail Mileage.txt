@@ -1,2 +1,0 @@
-var x = $feature["TRAIL_NAME"]
-LengthGeodetic(Filter($layer, 'TRAIL_NAME = @x'), 'miles')
