@@ -1,6 +1,0 @@
-var avail = $feature.AVAIL
-when(
-    avail == 'Yes - Ask Parks', "mailto:frogwatch@montgomeryparks.org",
-    avail == 'Yes - Ask DEP', "mailto:frogwatch@montgomerycountymd.gov",
-    NULL
-    )
